@@ -1,0 +1,54 @@
+:root {
+  --bg: #06030c;
+  --ink: #ffffff;
+  --accent: #ffd84d;
+  --violet: #6d2bd9;
+  --pink: #ff3d7f;
+  --display: 'Bebas Neue', Impact, sans-serif;
+  --body: 'Rubik', system-ui, sans-serif;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); font-family: var(--body); overflow: hidden; touch-action: none; user-select: none; -webkit-user-select: none; }
+#stage { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; background: radial-gradient(ellipse at center, #1a0d33 0%, #06030c 70%); }
+#game { display: block; background: #000; box-shadow: 0 0 80px rgba(120, 60, 255, 0.25); }
+#ui { position: absolute; pointer-events: none; }
+#ui > * { pointer-events: auto; }
+
+.screen { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; overflow: hidden; }
+.menu { background: linear-gradient(170deg, #1b0b3a 0%, #0b0618 55%, #050209 100%); padding: 6% 5% 5%; }
+.menu::before { content: ''; position: absolute; inset: -20%; background: repeating-linear-gradient(115deg, rgba(255,255,255,0.025) 0 22px, transparent 22px 60px); pointer-events: none; }
+.logo { font-family: var(--display); font-size: clamp(56px, 16cqw, 96px); line-height: 0.85; letter-spacing: 2px; text-align: center; transform: skewX(-8deg); background: linear-gradient(180deg, #fff 30%, #ffd84d 100%); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 4px 0 #6d2bd9) drop-shadow(0 0 30px rgba(255,61,127,0.45)); margin-top: 2%; }
+.tag { font-family: var(--display); font-size: 18px; letter-spacing: 3px; color: #c9b8ff; margin: 8px 0 18px; text-align: center; }
+.heroes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; max-width: 440px; z-index: 1; }
+.hero { position: relative; border: 2px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 10px 10px 10px 74px; background: rgba(255,255,255,0.04); cursor: pointer; min-height: 92px; transition: transform .12s, border-color .12s, background .12s; text-align: left; color: inherit; font: inherit; }
+.hero:hover { transform: translateY(-2px); }
+.hero.sel { border-color: var(--c); background: color-mix(in srgb, var(--c) 18%, transparent); box-shadow: 0 0 24px color-mix(in srgb, var(--c) 40%, transparent); }
+.hero img { position: absolute; left: 8px; top: 50%; width: 58px; transform: translateY(-50%) rotate(-90deg); image-rendering: auto; filter: drop-shadow(0 0 6px var(--c)); }
+.hero .n { font-family: var(--display); font-size: 26px; line-height: 1; color: var(--c); }
+.hero .r { font-size: 11px; opacity: .7; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+.hero .a { font-size: 11px; margin-top: 4px; opacity: .85; line-height: 1.25; }
+.hero .a b { color: #8fd1ff; font-weight: 700; }
+.play { margin-top: auto; z-index: 1; font-family: var(--display); font-size: 44px; letter-spacing: 3px; padding: 10px 70px 6px; border: 0; border-radius: 14px; background: linear-gradient(180deg, #ffe46b, #ffb81f); color: #2a1300; cursor: pointer; transform: skewX(-8deg); box-shadow: 0 6px 0 #a35f00, 0 12px 30px rgba(255,180,30,0.35); transition: transform .08s; }
+.play:active { transform: skewX(-8deg) translateY(4px); box-shadow: 0 2px 0 #a35f00; }
+.howto { z-index: 1; margin-top: 16px; font-size: 12px; line-height: 1.6; color: #b8acd8; text-align: center; max-width: 420px; }
+.howto kbd { font-family: var(--body); font-weight: 700; background: rgba(255,255,255,0.12); border-radius: 4px; padding: 0 5px; color: #fff; }
+
+.result { justify-content: center; background: rgba(10,3,30,0.55); backdrop-filter: blur(2px); }
+.band { position: relative; width: 140%; padding: 18px 0 8px; transform: rotate(-8deg); background: linear-gradient(90deg, #4a12b8, #8a2be2 50%, #4a12b8); box-shadow: 0 0 60px rgba(160,80,255,0.6); text-align: center; animation: bandIn .5s cubic-bezier(.2,1.4,.4,1) both; }
+.band.lose { background: linear-gradient(90deg, #5a0a1a, #b0203a 50%, #5a0a1a); box-shadow: 0 0 60px rgba(255,40,80,0.5); }
+.band h1 { margin: 0; font-family: var(--display); font-weight: 400; font-size: clamp(72px, 24cqw, 130px); line-height: 0.9; color: #fff; text-shadow: 0 6px 0 rgba(0,0,0,0.35); transform: skewX(-10deg); }
+@keyframes bandIn { from { transform: rotate(-8deg) scaleX(0.2); opacity: 0; } to { transform: rotate(-8deg) scaleX(1); opacity: 1; } }
+.stats { display: flex; gap: 12px; margin-top: 44px; animation: fadeUp .4s .35s both; }
+.stat { background: rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 10px 16px; text-align: center; min-width: 92px; }
+.stat .v { font-family: var(--display); font-size: 38px; line-height: 1; color: var(--accent); }
+.stat .l { font-size: 11px; letter-spacing: 1px; opacity: .75; font-weight: 700; }
+.btns { display: flex; flex-direction: column; gap: 12px; margin-top: 30px; animation: fadeUp .4s .5s both; align-items: center; }
+.btns .play { margin-top: 0; font-size: 36px; padding: 8px 48px 4px; }
+.ghost { font-family: var(--display); font-size: 22px; letter-spacing: 2px; background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.35); border-radius: 12px; padding: 6px 26px 3px; cursor: pointer; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+.hudbtn { position: absolute; top: 14px; width: 40px; height: 40px; border-radius: 50%; border: 3px solid #ffe14a; background: rgba(0,0,0,0.35); color: #ffe14a; font-size: 20px; line-height: 1; display: grid; place-items: center; cursor: pointer; font-family: var(--body); font-weight: 900; padding: 0; }
+.hudbtn.quit { left: 14px; }
+.hudbtn.mute { left: 62px; border-color: rgba(255,255,255,0.4); color: #fff; font-size: 15px; }
+.hint { position: absolute; bottom: 92px; left: 0; right: 0; text-align: center; font-family: var(--display); font-size: 18px; letter-spacing: 1px; color: rgba(255,255,255,0.85); text-shadow: 0 2px 6px #000; pointer-events: none; animation: fadeUp .4s both; }
+.loading { justify-content: center; font-family: var(--display); font-size: 32px; letter-spacing: 3px; }
